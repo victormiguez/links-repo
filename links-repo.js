@@ -1,54 +1,56 @@
 if (Meteor.isClient) {
   Template.body.onRendered(() => {
-    // $('#tags').selectize({
-    //     plugins: ['remove_button'],
-    //     delimiter: ',',
-    //     persist: true,
-    //     create: function(input) {
-    //         return {
-    //             value: input,
-    //             text: input
-    //         }
-    //     }
-    // });  
-var selectize = $("#select").selectize();
 
-var inviteList = [
-    {
-        text: 'Option One',
-        value: 1
-    },
-    {
-        text: 'Option Two',
-        value: 2
-    }
-];
-$("#select").options(inviteList);
+    $("#link-tags").selectize({
+      plugins: ['remove_button'],
+      delimiter: ',',
+      maxItems: null,
+      create: true,
+      persist: true,
+      create: function(input) {
+        return {
+          value: input,
+          text: input
+        }
+      }
+    });
 
-// // selectize.clear();
-// // selectize.clearOptions();
-// selectize.load(function(callback) {
-//     callback(inviteList);
-// });
-
+    
+    setTimeout(() => {
+      var selectize_tags = $("#link-tags")[0].selectize;
+      var storedTags = Tags.find().fetch();
+      storedTags.forEach((element) => {
+        selectize_tags.addOption({
+          text: element.name,
+          value: element._id
+        });
+      });
+    }, 5000);
   }),
   Template.body.events({
     'click .button': (event) => {
-      Links.insert({
-        title: 'Awesome link',
-        url: 'http://www.awseome.com',
-        labels: [
-          {
-            name: 'Front-end'
-          },
-          {
-            nae: 'Creativity'
-          }
-        ]
-      })
+      console.log(Tags.find().fetch());
     }
   })
 }
 
 if (Meteor.isServer) {
+  Meteor.startup(() => {
+    if (Tags.find({}).count() < 1){
+      var defaultTags = [
+        {
+          name: 'Design'
+        },
+        {
+          name: 'Creativity'
+        },
+        {
+          name: 'JavaScript'
+        }
+      ];
+      defaultTags.forEach((element) => {
+        Tags.insert(element);
+      });
+    }
+  });
 }

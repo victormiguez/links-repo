@@ -3,36 +3,23 @@
 </head>
 
 <body>
-  <header>
+  <header class="container">
     {{> loginButtons}}
     <h1>Links repo</h1>
   </header>
 
-  <main> 
+  <main class="container"> 
     {{#if currentUser}}
-      <button class="button">Insert link</button>
+      {{#autoForm collection="Links" id="insertLinkForm" type="insert"}}
+          <fieldset>
+            <legend>Add a link</legend>
+            {{> afQuickField name='title'}}
+            {{> afQuickField name='url'}}
+            <!-- <label class="control-label">Tags</label> -->
+            <select id="link-tags" class="demo-default selectized" placeholder="Select a state..." tabindex="-1"></select>
+          </fieldset>
+          <button type="submit" class="btn btn-primary">Insert</button>
+      {{/autoForm}}
     {{/if}}
   </main>
-
-
-
-
-
-{{#autoForm collection="Links" id="insertLinkForm" type="insert"}}
-  <fieldset>
-    <legend>Add a Book</legend>
-    {{> afQuickField name='title'}}
-    {{> afQuickField name='url'}}
-    <!-- <input type="text" id="tags" value="website,graphics,question"> -->
-    <select id="select"  class="demo-default selectized" placeholder="Select a state..." tabindex="-1">
-      <option value="">a</option>
-      <option value="">b</option>
-    </select>
-  </fieldset>
-  <button type="submit" class="btn btn-primary">Insert</button>
-{{/autoForm}}
-
-
-
-
 </body>

@@ -1,38 +1,23 @@
-Links = new Mongo.Collection('links');
+Tags = new Mongo.Collection('tags');
 
-Links.allow({
+Tags.allow({
   insert: (userId, doc) => {
     return !!userId;
   }
 });
 
 TagSchema = new SimpleSchema({
-  tagId: {
-    type: String
-  }
-});
-
-LinkSchema = new SimpleSchema({
-  title: {
+  name: {
     type: String,
     label: 'Title'
-  },
-  url: {
-    type: String,
-    label: 'URL'
-  },
-  tags: {
-    type: [TagSchema]
   },
   createdBy: {
     type: String,
     label: 'Created By',
-    autoValue: () => {
-      return Meteor.userId();
-    },
     autoform: {
       type: 'hidden'
-    }
+    },
+    optional: true
   },
   createdAt: {
     type: Date,
@@ -46,4 +31,4 @@ LinkSchema = new SimpleSchema({
   }
 });
 
-Links.attachSchema(LinkSchema);
+Tags.attachSchema(TagSchema);
