@@ -1,23 +1,54 @@
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+  Template.body.onRendered(() => {
+    // $('#tags').selectize({
+    //     plugins: ['remove_button'],
+    //     delimiter: ',',
+    //     persist: true,
+    //     create: function(input) {
+    //         return {
+    //             value: input,
+    //             text: input
+    //         }
+    //     }
+    // });  
+var selectize = $("#select").selectize();
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+var inviteList = [
+    {
+        text: 'Option One',
+        value: 1
+    },
+    {
+        text: 'Option Two',
+        value: 2
     }
-  });
+];
+$("#select").options(inviteList);
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+// // selectize.clear();
+// // selectize.clearOptions();
+// selectize.load(function(callback) {
+//     callback(inviteList);
+// });
+
+  }),
+  Template.body.events({
+    'click .button': (event) => {
+      Links.insert({
+        title: 'Awesome link',
+        url: 'http://www.awseome.com',
+        labels: [
+          {
+            name: 'Front-end'
+          },
+          {
+            nae: 'Creativity'
+          }
+        ]
+      })
     }
-  });
+  })
 }
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
 }
