@@ -1,7 +1,8 @@
 Template.Links.onRendered(() => {
 
-  console.log(selectize);
-  $('#link-tags').selectize({
+  if (Meteor.user()) {
+    console.log('a');
+    $('#link-tags').selectize({
     plugins: ['remove_button'],
     delimiter: ',',
     maxItems: null,
@@ -26,4 +27,5 @@ Template.Links.onRendered(() => {
       });
     });
   }, 5000);
+  }
 });
