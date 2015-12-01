@@ -1,14 +1,18 @@
 <template name="Links">
   {{#if currentUser}}
     {{#autoForm collection="Links" id="insertLinkForm" type="insert"}}
-        <fieldset>
-          <legend>Add a link</legend>
-          {{> afQuickField name='title'}}
-          {{> afQuickField name='url'}}
-    <label class="control-label">Tags</label>
-    <select id="link-tags" class="demo-default selectized" placeholder="Select a state..." tabindex="-1"></select>
-        </fieldset>
+      <fieldset>
+        <legend>Add a link</legend>
+        {{> afQuickField name='title'}}
+        {{> afQuickField name='url'}}
+        <!-- <label class="control-label">Tags</label>
+        {{> tagSelect}} -->
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Insert</button>
     {{/autoForm}}
-    <button type="submit" class="btn btn-primary">Insert</button>
   {{/if}}
+</template>
+
+<template name="tagSelect">
+  <select id="link-tags" class="demo-default selectized" placeholder="Select some tags"></select>
 </template>

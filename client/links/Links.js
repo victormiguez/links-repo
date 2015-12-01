@@ -1,8 +1,5 @@
-Template.Links.onRendered(() => {
-
-  if (Meteor.user()) {
-    console.log('a');
-    $('#link-tags').selectize({
+Template.tagSelect.onRendered(() => {
+  this.$('#link-tags').selectize({
     plugins: ['remove_button'],
     delimiter: ',',
     maxItems: null,
@@ -16,16 +13,12 @@ Template.Links.onRendered(() => {
     }
   });
 
-  
-  setTimeout(() => {
-    var selectize_tags = $('#link-tags')[0].selectize;
-    var storedTags = Tags.find().fetch();
-    storedTags.forEach((element) => {
-      selectize_tags.addOption({
-        text: element.name,
-        value: element._id
-      });
+  var selectize_tags = $('#link-tags')[0].selectize;
+  var storedTags = Tags.find().fetch();
+  storedTags.forEach((element) => {
+    selectize_tags.addOption({
+      text: element.name,
+      value: element._id
     });
-  }, 5000);
-  }
+  });
 });
