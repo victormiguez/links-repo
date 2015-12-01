@@ -5,8 +5,8 @@
         <legend>Add a link</legend>
         {{> afQuickField name='title'}}
         {{> afQuickField name='url'}}
-        <!-- <label class="control-label">Tags</label>
-        {{> tagSelect}} -->
+        <label class="control-label">Tags</label>
+        {{> tagSelect}}
       </fieldset>
       <button type="submit" class="btn btn-primary">Insert</button>
     {{/autoForm}}
@@ -14,5 +14,6 @@
 </template>
 
 <template name="tagSelect">
-  <select id="link-tags" class="demo-default selectized" placeholder="Select some tags"></select>
+  <select id="link-tags" name="tags" class="demo-default selectized" placeholder="Select some tags"></select>
+  <!-- <input id="link-tags" name="tags" class="demo-default selectized" placeholder="Select some tags" type="text"> -->
 </template>
