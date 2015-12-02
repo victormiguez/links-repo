@@ -1,3 +1,11 @@
+Template.tagSelect.onCreated(function () {
+  let self = this;
+
+  self.autorun(() => {
+    self.subscribe('tags');
+  });
+});
+
 Template.tagSelect.onRendered(() => {
   this.$('#link-tags').selectize({
     plugins: ['remove_button'],
