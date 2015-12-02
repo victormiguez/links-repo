@@ -5,11 +5,19 @@ Template.Links.helpers({
 });
 
 Template.Links.events({
-  'submit #insertLinkForm': (event) => {
-    var tags = $('#link-tags')[0].selectize.getValue();
-    Session.set('tags', tags);
+  'submit #insertLinkForm': () => {
+    let tags = $('#link-tags')[0].selectize.getValue();
+
+    tags.forEach((element) => {
+      if (!Tags.findOne({_id: element})){
+        Tags.insert({
+          name: element,
+          createdBy: Meteor.userId()
+        });
+      }
+    });
   }
-})
+});
 
 Template.tagSelect.onRendered(() => {
   this.$('#link-tags').selectize({
@@ -26,8 +34,9 @@ Template.tagSelect.onRendered(() => {
     }
   });
 
-  var selectize_tags = $('#link-tags')[0].selectize;
-  var storedTags = Tags.find().fetch();
+  let selectize_tags = $('#link-tags')[0].selectize;
+  let storedTags = Tags.find().fetch();
+  console.log(storedTags);
   storedTags.forEach((element) => {
     selectize_tags.addOption({
       text: element.name,
@@ -39,13 +48,14 @@ Template.tagSelect.onRendered(() => {
 var linkHooks = {
   before: {
     insert: function(doc) {
-      var tags = [];
-      
-      Session.get('tags').forEach((element) => {
-        tags.push({tagId: element});
+      var tagsObject = [];
+      var tags = $('#link-tags')[0].selectize.getValue();
+
+      tags.forEach((element) => {
+        tagsObject.push({tagId: element});
       });
-      
-      doc.tags = tags;
+
+      doc.tags = tagsObject;
       return doc;
     }
   }
