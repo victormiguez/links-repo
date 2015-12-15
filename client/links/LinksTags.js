@@ -21,13 +21,14 @@ Template.tagSelect.onRendered(() => {
     }
   });
 
-  let selectize_tags = $('#link-tags')[0].selectize;
-  let storedTags = Tags.find().fetch();
-  console.log(storedTags);
-  storedTags.forEach((element) => {
-    selectize_tags.addOption({
-      text: element.name,
-      value: element._id
+  setTimeout(function() {
+    let selectize_tags = $('#link-tags')[0].selectize;
+    let storedTags = Tags.find().fetch();
+    storedTags.forEach((element) => {
+      selectize_tags.addOption({
+        text: element.name,
+        value: element._id
+      });
     });
-  });
+  }, 500);
 });

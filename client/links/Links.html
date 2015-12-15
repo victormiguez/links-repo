@@ -11,4 +11,16 @@
       <button type="submit" class="btn btn-primary">Insert</button>
     {{/autoForm}}
   {{/if}}
+  
+  {{#if links}}
+    <h1>Your stored links</h1>
+
+    {{#each links}}
+      <p>{{title}}</p>
+      {{#each tags}}
+        <span class="label label-primary">{{tagName tagId}}</span>
+      {{/each}}
+    {{/each}}
+  {{/if}}
 </template>
+
