@@ -16,7 +16,7 @@
     <h1>Your stored links</h1>
 
     {{#each links}}
-      <p>{{title}}</p>
+      <a href="{{url}}" target="_blank">{{title}}</a>
       {{#each tags}}
         <span class="label label-primary">{{tagName tagId}}</span>
       {{/each}}
