@@ -1,10 +1,12 @@
 Meteor.publish('tags', () => {
-  return Tags.find({ 
-    'createdBy' : { '$exists' : false }
-  });
+  return Tags.find({ 'createdBy' : { '$exists' : false } });
 });
 
+Meteor.publish('tagsByUser', (userId) => {
+  return Tags.find({ createdBy: userId });
+});
+
+
 Meteor.publish('linksByUser', (userId) => {
-  console.log(userId);
   return Links.find({ createdBy: userId });
 });
